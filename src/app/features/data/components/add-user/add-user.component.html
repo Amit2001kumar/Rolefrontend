@@ -1,0 +1,112 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="card card-default" id="test">
+    <div class="card-header">
+      <h4 class="card-title"><strong> Add/Update</strong></h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label class="text-danger" for="name">Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            placeholder="Enter Name"
+            (keypress)="ValidateAlpha($event)"
+            [ngClass]="{ 'is-invalid': f.name.touched && f.name.errors }"
+          />
+          <div *ngIf="f.name.touched && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Name is required</div>
+          </div>
+          <!-- <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Name is required</div>
+          </div> -->
+        </div>
+
+        <div class="form-group col-md-6">
+          <label class="text-danger" for="email">Email:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            placeholder="Enter Email"
+            [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }"
+          />
+          <div
+            *ngIf="f.email.touched && f.email.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.email">
+              Email must be a valid email address
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label class="text-danger" for="roleSelect">Select Role:</label>
+          <select class="form-control" id="roleSelect" formControlName="role" [ngClass]="{ 'is-invalid': f.role.touched && f.role.errors }">
+            <!-- Default option with an empty value -->
+            <option value="" disabled selected>Please select</option>
+            <!-- Existing options -->
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+          </select>
+          <div *ngIf="f.role.touched && f.role.errors" class="invalid-feedback">
+            <div *ngIf="f.role.errors.required">Role is required</div>
+          </div>
+        </div>
+        
+        
+        <!-- <div class="form-group col-md-6">
+          <label class="text-danger" for="role">Role:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="role"
+            formControlName="role"
+            placeholder="Enter Role"
+            (keypress)="ValidateAlpha($event)"
+            [ngClass]="{ 'is-invalid': f.role.touched && f.role.errors }"
+          />
+          <div *ngIf="f.role.touched && f.role.errors" class="invalid-feedback">
+            <div *ngIf="f.role.errors.required">Role is required</div>
+          </div>
+        </div> -->
+
+        <div class="form-group col-md-6 text-danger">
+          <label for="">Mobile No.</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="mobile"
+            id="mobile"
+            placeholder="Enter Mobile No"
+            (keypress)="keyPressNumbers($event)"
+            name="mobile" maxlength="10"
+            [ngClass]="{ 'is-invalid': f.mobile.touched && f.mobile.errors }"
+          />
+
+          <div *ngIf="f.mobile.touched && f.mobile.invalid" class="invalid-feedback">  
+            <div *ngIf="f.mobile.errors.required">Mobile Number is required.</div>  
+            <div *ngIf="f.mobile.errors.pattern">Please, Enter 10 digit Mobile Number.</div>  
+        </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <div class="card-body text-center">
+    <button
+      type="submit"
+      class="btn btn-primary ml-2 mb-1"
+      [disabled]="userForm.invalid"
+    >
+      Add User</button
+    >&nbsp;&nbsp;
+    <button type="reset" class="btn border bg-light ml-2 mb-1" [routerLink]="['/getdata']">Cancel</button>
+  </div>
+</form>
